@@ -12,7 +12,7 @@ class MainController extends CoreController
 
     public function test()
     {
-        $brandModel = new Brand(); // peut modifier Brand avec les autres nom de model pour tester
+        $brandModel = new Brand();
         $list = $brandModel->findAll();
         $elem = $brandModel->find(7);
         dump($list);
@@ -25,7 +25,7 @@ class MainController extends CoreController
     {
         // Ci dessous je créer une instance du model Category
         $categoryModel = new Category();
-        // Ensuite j'execute la fonction findAllForHomePage() du model Category
+
         $categories = $categoryModel->findAllForHomePage();
         // dump($categories);
         $this->show('home', [
@@ -33,12 +33,12 @@ class MainController extends CoreController
         ]);
     }
 
-    /**
-     * Show legal mentions page
-     */
+
+
     public function legalMentions()
     {
-        // Affiche la vue dans le dossier views
-        $this->show('mentions');
+        $this->show('mentions', [
+            'title' => 'Mentions légales'
+        ]);
     }
 }

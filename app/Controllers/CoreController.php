@@ -7,8 +7,9 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\Type;
 
-class CoreController 
+class CoreController
 {
+
     /**
      * Fonction qui permet d'afficher la vue
      * $viewData = les données que je veux récupérer dans ma vue

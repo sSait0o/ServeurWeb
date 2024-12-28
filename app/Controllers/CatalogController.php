@@ -107,4 +107,49 @@ class CatalogController extends CoreController
             'product' => $product
         ]);
     }
+
+    /**
+     * Show list of all products
+     */
+    public function listProducts()
+    {
+        // Récupérer tous les produits via le modèle Product
+        $productModel = new Product();
+        $products = $productModel->findAll(); // Cette méthode doit être ajoutée dans le modèle Product
+
+        // Appeler la vue "products" et lui envoyer les données
+        $this->show('products', [
+            'products' => $products
+        ]);
+    }
+
+    public function type($params)
+    {
+        $id_type = $params['id'];
+        $typeModel = new Type();
+        $type = $typeModel->find($id_type);
+
+        $productModel = new Product();
+        $products = $productModel->findByType($id_type);
+
+        $this->show('type', [
+            'type' => $type,
+            'products' => $products
+        ]);
+    }
+
+    public function brand($params)
+    {
+        $id_brand = $params['id'];
+        $brandModel = new Brand();
+        $brand = $brandModel->find($id_brand);
+
+        $productModel = new Product();
+        $products = $productModel->findByBrand($id_brand);
+
+        $this->show('brand', [
+            'brand' => $brand,
+            'products' => $products
+        ]);
+    }
 }

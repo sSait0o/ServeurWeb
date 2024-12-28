@@ -1,5 +1,10 @@
 <?php
 
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+
 // Ici j'inclus le fichier autoload.php car c'est grâce à ce fichier que je vais pouvoir inclure TOUTES mes dépendances composer (donc ce qu'il y a dans le dossier vendor)
 require_once __DIR__ . "/../vendor/autoload.php";
 
@@ -17,36 +22,40 @@ $router->setBasePath($_SERVER['BASE_URI']); // Je définis le chemin de base => 
 
 // Ci dessous je dump(j'affiche) CatalogController::class
 // CatalogController::class => c'est le nom complet de la classe CatalogController, cad que ca va afficher le namespace de cette classe + le nom de la classe => App\Controllers\CatalogController
-$router->addRoutes(array( 
-    array('GET','/', [
+$router->addRoutes(array(
+    array('GET', '/products', [
+        'controller' => CatalogController::class,
+        'action' => 'listProducts'
+    ], 'product-list'),
+    array('GET', '/', [
         'controller' => MainController::class, // Dans quel controller ?
         'action' => 'home' // Quelle méthode dans ce controller ?
     ], 'home'),
-    array('GET','/mentions-legales', [
+    array('GET', '/mentions-legales', [
         'controller' => MainController::class, // le namespace nom de la classe + le nom de la classe (concatenation) 
         'action' => 'legalMentions'
     ], 'legal-mentions'),
-    array('GET','/catalogue/categorie/[i:id]', [
+    array('GET', '/catalogue/categorie/[i:id]', [
         'controller' => CatalogController::class,
         'action' => 'category'
     ], 'catalog-category'),
-    array('GET','/catalogue/type/[i:id]', [
+    array('GET', '/catalogue/type/[i:id]', [
         'controller' => CatalogController::class,
         'action' => 'type'
     ], 'catalog-type'),
-    array('GET','/catalogue/marque/[i:id]', [
+    array('GET', '/catalogue/marque/[i:id]', [
         'controller' => CatalogController::class,
         'action' => 'brand'
     ], 'catalog-brand'),
-    array('GET','/catalogue/produit/[i:id]', [
+    array('GET', '/catalogue/produit/[i:id]', [
         'controller' => CatalogController::class,
         'action' => 'product'
     ], 'catalog-product'),
-    array('GET','/test', [
+    array('GET', '/test', [
         'controller' => MainController::class,
         'action' => 'test'
     ])
-  ));
+));
 
 // Ici on check si la route sur laquelle on est a bien été mappé
 // doc : https://altorouter.com/usage/matching-requests.html

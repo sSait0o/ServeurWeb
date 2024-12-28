@@ -2,6 +2,10 @@
 
 namespace App\Models;
 
+use PDO;
+use App\Utils\Database;
+use App\Models\Category;
+
 // Modele de base : c'est la classe mère dont vont hériter TOUS les models
 // Cette classe n'est pas destinée à être instancié, mais seulement à être héritée
 class CoreModel
@@ -16,7 +20,7 @@ class CoreModel
 
     /**
      * Get the value of id
-     */ 
+     */
     public function getId()
     {
         return $this->id;
@@ -26,7 +30,7 @@ class CoreModel
      * Set the value of id
      *
      * @return  self
-     */ 
+     */
     public function setId($id)
     {
         $this->id = $id;
@@ -34,7 +38,7 @@ class CoreModel
 
     /**
      * Get the value of updated_at
-     */ 
+     */
     public function getUpdated_at()
     {
         return $this->updated_at;
@@ -44,7 +48,7 @@ class CoreModel
      * Set the value of updated_at
      *
      * @return  self
-     */ 
+     */
     public function setUpdated_at($updated_at)
     {
         $this->updated_at = $updated_at;
@@ -52,7 +56,7 @@ class CoreModel
 
     /**
      * Get the value of created_at
-     */ 
+     */
     public function getCreated_at()
     {
         return $this->created_at;
@@ -62,9 +66,23 @@ class CoreModel
      * Set the value of created_at
      *
      * @return  self
-     */ 
+     */
     public function setCreated_at($created_at)
     {
         $this->created_at = $created_at;
+    }
+}
+
+class Product extends CoreModel
+{
+
+    public function findAll()
+    {
+        $sql = 'SELECT * FROM products';
+        $pdo = Database::getPDO();
+        $stmt = $this->pdo->query($sql); // 
+
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 }
